@@ -22,7 +22,7 @@ class Room:
         self.students = students
 
 
-def bl(data_about_students, data_about_rooms):
+def bl(data_about_rooms, data_about_students):
     rooms_for_students = {key: [] for key in range(len(data_about_rooms))}
     for evidence_of_student in data_about_students:
         room = evidence_of_student["room"]
@@ -40,7 +40,6 @@ def bl(data_about_students, data_about_rooms):
 def json_serializer():
     with open(args.rooms, "r") as rooms_file:
         data_about_rooms = json.load(rooms_file)
-        print(data_about_rooms)
     with open(args.students, "r") as students_file:
         data_about_students = json.load(students_file)
 
