@@ -39,7 +39,6 @@ def bl(data_about_rooms, data_about_students):
     for el in data_about_rooms:
         key = el["id"]
         students_by_room[key] = []
-    # students_by_room = {key: [] for key in range(len(data_about_rooms))}
 
     for evidence_of_student in data_about_students:
         room = evidence_of_student["room"]
@@ -57,17 +56,13 @@ def bl(data_about_rooms, data_about_students):
 
 
 def json_serializer(args):
-    # read rooms file. maybe xml
     with open(args.rooms, "r") as rooms_file:
         data_about_rooms = json.load(rooms_file)
-    # read students file. maybe xml
     with open(args.students, "r") as students_file:
         data_about_students = json.load(students_file)
 
-    # group students by rooms, resulting in a list of rooms
     students_in_rooms = bl(data_about_rooms, data_about_students)
 
-    # prepare result for json result
     result = []
     for room in students_in_rooms:
         student_dicts = [dict(id=s.id, name=s.name) for s in room.students]
@@ -78,43 +73,23 @@ def json_serializer(args):
         }
         result.append(item)
 
-    # save result to json, maybe xml
     with open(args.st_in_rooms, "w") as file:
         json.dump(result, file, indent=4, ensure_ascii=False)
 
 
 def xml_serializer(args):
     students_xml_tree = ET.parse(args.students)
-    """
-    <xml>
-      <student id=12312 name="gratest mind ever" room=105 />
-      ....
-    </xml>
-    """
+
     root = students_xml_tree.getroot()
     data_about_students = [child.attrib for child in root]
 
     rooms_xml_tree = ET.parse(args.rooms)
-    """
-    <xml>
-      <room id=12312 name="gratest mind ever" />
-      ....
-    </xml>
-    """
+
     root = rooms_xml_tree.getroot()
     data_about_rooms = [child.attrib for child in root]
 
     students_by_room = bl(data_about_rooms, data_about_students)
 
-    """
-    <xml>
-      <room id=12312 name="gratest mind ever">
-        <student id="567" name="ololo" />
-        ...
-      </room>
-      ...
-    </xml>
-    """
     root = ET.Element("xml")
     for r in students_by_room:
         room = ET.SubElement(root, "room", attrib={"id": r.id, "name": r.name})
