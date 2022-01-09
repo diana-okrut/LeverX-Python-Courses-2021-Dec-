@@ -80,7 +80,7 @@ WSGI_APPLICATION = "online_course.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "online_course",
+        "NAME": "online_course1",
         "USER": "postgres_oc",
         "PASSWORD": "1111",
         "HOST": "127.0.0.1",
