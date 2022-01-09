@@ -4,7 +4,17 @@ from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
 from rest_framework import viewsets
 
-from .models import Teacher, HomeAssignment, Student, Course, Lecture, HomeWork, Score, TeacherComment, StudentComment
+from .models import (
+    Teacher,
+    HomeAssignment,
+    Student,
+    Course,
+    Lecture,
+    HomeWork,
+    Score,
+    TeacherComment,
+    StudentComment,
+)
 from .serializers import (
     TeacherSerializer,
     StudentSerializer,

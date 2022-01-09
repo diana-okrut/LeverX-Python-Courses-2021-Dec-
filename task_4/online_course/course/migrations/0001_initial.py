@@ -8,104 +8,238 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Course',
+            name="Course",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=256, verbose_name='Название курса')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(max_length=256, verbose_name="Название курса"),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='HomeAssignment',
+            name="HomeAssignment",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('task', models.TextField(verbose_name='Задание')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("task", models.TextField(verbose_name="Задание")),
             ],
         ),
         migrations.CreateModel(
-            name='HomeWork',
+            name="HomeWork",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.TextField()),
-                ('home_assignment', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='course.homeassignment')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("text", models.TextField()),
+                (
+                    "home_assignment",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="course.homeassignment",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Score',
+            name="Score",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('score', models.IntegerField(verbose_name='Оценка')),
-                ('homework', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='course.homework')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("score", models.IntegerField(verbose_name="Оценка")),
+                (
+                    "homework",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="course.homework",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='TeacherComment',
+            name="TeacherComment",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.TextField()),
-                ('teacher', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='course.score')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("text", models.TextField()),
+                (
+                    "teacher",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="course.score"
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Teacher',
+            name="Teacher",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=100, verbose_name='Имя преподавателя')),
-                ('last_name', models.CharField(max_length=100, verbose_name='Фамилия преподавателя')),
-                ('email', models.EmailField(max_length=254)),
-                ('courses', models.ManyToManyField(related_name='teachers', to='course.Course')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "first_name",
+                    models.CharField(max_length=100, verbose_name="Имя преподавателя"),
+                ),
+                (
+                    "last_name",
+                    models.CharField(
+                        max_length=100, verbose_name="Фамилия преподавателя"
+                    ),
+                ),
+                ("email", models.EmailField(max_length=254)),
+                (
+                    "courses",
+                    models.ManyToManyField(related_name="teachers", to="course.Course"),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='StudentComment',
+            name="StudentComment",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.TextField()),
-                ('student', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='course.score')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("text", models.TextField()),
+                (
+                    "student",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="course.score"
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='Student',
+            name="Student",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=100, verbose_name='Имя студента')),
-                ('last_name', models.CharField(max_length=100, verbose_name='Фамилия студента')),
-                ('email', models.EmailField(max_length=254)),
-                ('courses', models.ManyToManyField(related_name='courses', to='course.Course')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "first_name",
+                    models.CharField(max_length=100, verbose_name="Имя студента"),
+                ),
+                (
+                    "last_name",
+                    models.CharField(max_length=100, verbose_name="Фамилия студента"),
+                ),
+                ("email", models.EmailField(max_length=254)),
+                (
+                    "courses",
+                    models.ManyToManyField(related_name="courses", to="course.Course"),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='score',
-            name='teacher',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='course.teacher'),
+            model_name="score",
+            name="teacher",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="course.teacher"
+            ),
         ),
         migrations.CreateModel(
-            name='Lecture',
+            name="Lecture",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=256, verbose_name='Название лекции')),
-                ('text', models.TextField()),
-                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='lectures', to='course.course')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(max_length=256, verbose_name="Название лекции"),
+                ),
+                ("text", models.TextField()),
+                (
+                    "course",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="lectures",
+                        to="course.course",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='homework',
-            name='student',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='course.student'),
+            model_name="homework",
+            name="student",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="course.student"
+            ),
         ),
         migrations.AddField(
-            model_name='homeassignment',
-            name='lecture',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='home_assignments', to='course.lecture'),
+            model_name="homeassignment",
+            name="lecture",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="home_assignments",
+                to="course.lecture",
+            ),
         ),
     ]

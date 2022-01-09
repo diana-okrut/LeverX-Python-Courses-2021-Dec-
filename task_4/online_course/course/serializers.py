@@ -1,26 +1,35 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from .models import Teacher, HomeAssignment, Student, Course, Lecture, HomeWork, Score, TeacherComment, StudentComment
+from .models import (
+    Teacher,
+    HomeAssignment,
+    Student,
+    Course,
+    Lecture,
+    HomeWork,
+    Score,
+    TeacherComment,
+    StudentComment,
+)
 
 
 class UserSerializer(serializers.ModelSerializer):
-
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
-        user.set_password(validated_data['password'])
+        user.set_password(validated_data["password"])
         return user
 
     class Meta:
         model = User
-        extra_kwargs = {'password': {'write_only': True}}
+        extra_kwargs = {"password": {"write_only": True}}
 
         fields = (
-            'id',
-            'first_name',
-            'last_name',
-            'email',
-            'password',
+            "id",
+            "first_name",
+            "last_name",
+            "email",
+            "password",
         )
 
 
@@ -28,11 +37,11 @@ class ScoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Score
         fields = (
-            'score',
-            'teacher',
-            'homework',
-            'author',
-            'updated_at',
+            "score",
+            "teacher",
+            "homework",
+            "author",
+            "updated_at",
         )
 
 
@@ -42,10 +51,10 @@ class TeacherCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = TeacherComment
         fields = (
-            'text',
-            'updated_at',
-            'teacher',
-            'score',
+            "text",
+            "updated_at",
+            "teacher",
+            "score",
         )
 
 
@@ -55,10 +64,10 @@ class StudentCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentComment
         fields = (
-            'text',
-            'updated_at',
-            'student',
-            'score',
+            "text",
+            "updated_at",
+            "student",
+            "score",
         )
 
 
@@ -68,10 +77,10 @@ class HomeWorkSerializer(serializers.ModelSerializer):
     class Meta:
         model = HomeWork
         fields = (
-            'student',
-            'home_assignment',
-            'text',
-            'scores',
+            "student",
+            "home_assignment",
+            "text",
+            "scores",
         )
 
 
@@ -81,12 +90,12 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = (
-            'first_name',
-            'last_name',
-            'email',
-            'courses',
-            'homeworks',
-            )
+            "first_name",
+            "last_name",
+            "email",
+            "courses",
+            "homeworks",
+        )
 
 
 class TeacherSerializer(serializers.ModelSerializer):
@@ -95,11 +104,11 @@ class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
         fields = (
-            'first_name',
-            'last_name',
-            'email',
-            'courses',
-            'scores',
+            "first_name",
+            "last_name",
+            "email",
+            "courses",
+            "scores",
         )
 
 
@@ -109,13 +118,12 @@ class HomeAssignmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = HomeAssignment
         fields = (
-            'task',
-            'lecture',
-            'author',
-            'updated_at',
-            'score',
-            'home_works',
-
+            "task",
+            "lecture",
+            "author",
+            "updated_at",
+            "score",
+            "home_works",
         )
 
 
@@ -125,12 +133,12 @@ class LectureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lecture
         fields = (
-            'name',
-            'file',
-            'course',
-            'author',
-            'updated_at',
-            'home_assignments',
+            "name",
+            "file",
+            "course",
+            "author",
+            "updated_at",
+            "home_assignments",
         )
 
 
@@ -142,10 +150,8 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = (
-            'name',
-            'lectures',
-            'teachers',
-            'students',
+            "name",
+            "lectures",
+            "teachers",
+            "students",
         )
-
-

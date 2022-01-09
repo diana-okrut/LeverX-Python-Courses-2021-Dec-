@@ -1,6 +1,16 @@
 from django.contrib import admin
 
-from .models import Teacher, HomeAssignment, Student, Course, Lecture, HomeWork, Score, TeacherComment, StudentComment
+from .models import (
+    Teacher,
+    HomeAssignment,
+    Student,
+    Course,
+    Lecture,
+    HomeWork,
+    Score,
+    TeacherComment,
+    StudentComment,
+)
 
 
 admin.site.register(Teacher)
