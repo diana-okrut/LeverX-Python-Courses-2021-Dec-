@@ -63,7 +63,7 @@ class Score(models.Model):
     updated_at = models.DateTimeField()
 
     def __str__(self):
-        return (f"{self.score}", f"{self.updated_at}")
+        return f"{self.score}", f"{self.updated_at}"
 
 
 class Comment(models.Model):
@@ -71,7 +71,7 @@ class Comment(models.Model):
     updated_at = models.DateTimeField()
 
     def __str__(self):
-        return (f"{self.text}", f"{self.updated_at}")
+        return f"{self.text}", f"{self.updated_at}"
 
     class Meta:
         abstract = True
